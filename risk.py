@@ -15,14 +15,14 @@ def ProbOnTime(pmf):
 def ProbLate(pmf):
     return FilteredCumulativeProbability(lambda x: x[0] > 40 , pmf)
 
-def RelativeRisk(pmf_first, pmf_other):
+def ComputeRelativeRisk(pmf_first, pmf_other):
     print 'Prob of being early for first births %f, for others %f' % (ProbEarly(pmf_first),ProbEarly(pmf_other))
     print 'Prob of being on time for first births %f, for other %f' % (ProbOnTime(pmf_first),ProbOnTime(pmf_other))
     print 'Prob of being late for first births %f, for others %f' % (ProbLate(pmf_first), ProbLate(pmf_other))
 
 def main():
     pool, firsts, others = descriptive.MakeTables()
-    RelativeRisk(firsts.pmf, others.pmf)
+    ComputeRelativeRisk(firsts.pmf, others.pmf)
 
 if __name__ == "__main__":
     main()
