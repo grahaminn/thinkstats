@@ -1,6 +1,16 @@
 import Pmf
 
-pmf = Pmf.MakePmfFromDict({7:8,12:8,17:14,22:4,27:6,32:12,37:8,42:3,47:2})
+class_dict = {7: 8, 12: 8, 17: 14, 22: 4, 27: 6, 32: 12, 37: 8, 42: 3, 47: 2}
+
+
+pmf = Pmf.MakePmfFromDict(class_dict)
 print "Dean's pmf mean:%f" % pmf.Mean()
 
-print "average class size per student: %f" % (((7 * 8) + (8 * 12) + (14 * 17) + (22 * 4) + (6 * 27) + (12 * 32) + (8 * 37) + (3 * 42) + (2 * 47)) / 65)
+total_students = 0
+total_classes = 0
+map(lambda (size):pmf.Mult(size, size), pmf.Values()) 
+pmf.Normalize()
+
+print "average perceived class size per student: %f" % pmf.Mean()
+
+# the sample can be unbiased by mapping lambda(size):pmf.Mult(size,1/size) over it
