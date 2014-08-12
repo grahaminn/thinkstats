@@ -7,13 +7,13 @@ import random
 def paretovariate(a, xm):
   return xm * random.paretovariate(a)
 
-values = map(lambda(x):random.expovariate(1.0/5.0), range(44))
+values = map(lambda(x):paretovariate(1,1), range(44))
 
 cdf = Cdf.MakeCdfFromList(values)
 pmf = Pmf.MakePmfFromList(values)
 
-myplot.Pmf(pmf)
-# myplot.Cdf(cdf, complement=True, xscale='log', yscale='log')
-myplot.Show(title='pareto distribution log plot', xlabel='log value', ylabel='log complementary CDF')
+#myplot.Pmf(pmf)
+myplot.Cdf(cdf, complement=True)
+myplot.Show(title='pareto distribution log plot', xscale='log', yscale='log', xlabel='log value', ylabel='log complementary CDF')
 
 
