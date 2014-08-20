@@ -18,4 +18,3 @@ myplot.Show(title="Normal plot for weight")
 myplot.Plot(xs,logys)
 myplot.Show(title="Normal plot for log(weight)")
 
-
