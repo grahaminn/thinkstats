@@ -8,7 +8,7 @@ import Pmf
 cohort_dict = defaultdict(int)
 
 for year in range(10):
-    for cohort in range(100):
+    for cohort in range(10000):
         for person in range(100):
             if numpy.random.randint(1000) == 1:
                 cohort_dict[cohort] += 1
