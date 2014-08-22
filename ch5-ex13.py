@@ -30,7 +30,7 @@ myplot.Show(title="Distribution of diagnoses")
 print 'odds of at least one cohort in 100 generating a 5% event', 1 - (0.95 ** 100)
 print 'odds of at least one cohort in 100 generating a 1% event', 1 - (0.99 ** 100)
 
-print 'There are 91x91 10x10 blocks in a 100x100 grid. the chance of at least one having a 5% event is 1 - (0.95^(91*91))=', (1 - (0.95 ** 91))
+print 'There are 91x91 10x10 blocks in a 100x100 grid. the chance of at least one having a 5% event is 1 - (0.95^(91*91))=', (1 - (0.95 ** (91 ** 2)))
 
 # Applying the same logic but with 21 times more opportunities basically guarantees there will be a cluster.
 
