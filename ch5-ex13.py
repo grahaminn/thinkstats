@@ -59,6 +59,16 @@ print 'odds of a 1% event based on 1000 experiments =' , monte_carlo_cohorts(100
 
 print 'There are 91x91 10x10 blocks in a 100x100 grid. the chance of at least one having a 5% event is 1 - (0.95^(91*91))=', (1 - (0.95 ** (91 ** 2)))
 
+diagnosed = [[False for y in xrange(100)] for x in xrange(100)]
+
+def update(grid):
+    for x in grid:
+        for y in x:
+            if numpy.random.randint(1000) == 1:
+                grid[x][y] = True
+
+
+
 # Applying the same logic but with 21 times more opportunities basically guarantees there will be a cluster.
 
 
