@@ -9,7 +9,6 @@ print 'odds of a 10 streak from 10 players with 15 shots each, analytically:', o
 
 odds_no_streak = 1 - odds_of_streak
 
-
 def player_has_streak(shots, streak_threshold):
     in_streak = False
     streak = 0
