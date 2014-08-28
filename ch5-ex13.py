@@ -59,16 +59,65 @@ print 'odds of a 1% event based on 1000 experiments =' , monte_carlo_cohorts(100
 
 print 'There are 91x91 10x10 blocks in a 100x100 grid. the chance of at least one having a 5% event is 1 - (0.95^(91*91))=', (1 - (0.95 ** (91 ** 2)))
 
-diagnosed = [[False for y in xrange(100)] for x in xrange(100)]
+class Grid:
+    def __init__(self, width, height):
+        self.diagnosed = [[False for y in xrange(height)] for x in xrange(width)]
 
-def update(grid):
-    for x in grid:
-        for y in x:
-            if numpy.random.randint(1000) == 1:
-                grid[x][y] = True
+    def update(self):
+        for column in range(len(self.diagnosed)):
+            for row in range(len(self.diagnosed[column])):
+                if numpy.random.randint(1000) == 1:
+                    self.diagnosed[column][row] = True
+   
+    def update_over_time(self, time):
+        for t in range(time):
+            self.update()  
+    
+    def check_sub_grid_for_cluster(self, cluster_threshold, xorigin, yorigin, width, height):
+        diagnosis_count = 0
+        cluster = False
+        for x in range (xorigin, xorigin + width):
+            for y in range(yorigin, yorigin + height):
+                if self.diagnosed[x][y] is True:
+                    diagnosis_count += 1
+                    if diagnosis_count == cluster_threshold:
+                        cluster = True
+                        break
+            if cluster is True:
+                break
+        return cluster       
 
+    def check_sub_grids_for_clusters(self, cluster_threshold, width, height):
+        for x in range(len(self.diagnosed) - width):
+            for y in range(len(self.diagnosed[x]) - height):
+                if self.check_sub_grid_for_cluster(cluster_threshold, x, y, width, height) is True:
+                    return True
+        return False
+                      
 
+cluster_yield = 0.0
+for experiment in range(1000):
+    grid = Grid(100, 100)
+    grid.update_over_time(10)
+    if grid.check_sub_grids_for_clusters(4, 10, 10) is True:
+        cluster_yield += 1.0
 
-# Applying the same logic but with 21 times more opportunities basically guarantees there will be a cluster.
+print 'clusters found at 5%:', (cluster_yield / 10.0)
 
+cluster_yield = 0.0
+for experiment in range(1000):
+    grid = Grid(100, 100)
+    grid.update_over_time(10)
+    if grid.check_sub_grids_for_clusters(5, 10, 10) is True:
+        cluster_yield += 1.0
 
+print 'clusters found at 1%:', (cluster_yield / 10.0)
+
+cluster_yield = 0.0
+for experiment in range(1000):
+    grid = Grid(100, 100)
+    grid.update_over_time(30)
+    if grid.check_sub_grids_for_clusters(4, 10, 10) is True:
+        cluster_yield += 1.0
+
+print 'clusters found at 5% over 30 years:', (cluster_yield / 10.0)
