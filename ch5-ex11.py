@@ -1,13 +1,19 @@
 import numpy
 import thinkstats
 
-# 10 consecutive shots from 15, is the probability of 10 out of 10 shots times 60 (there are 10 players, and each has 6 opportunities, shots 1-10 go in, or shots 2-11 etc.. up to  6-15)
+# 10 consecutive shots from 15
 
-odds_of_streak = ((0.5 ** 10) * 60)
+odds_of_streak_within_shots = ((2 * (2 ** 4)) + (6 * (2 ** 3)) + (4 * (2 ** 2)) + 11)  / (2.0 ** 15)
+print 'odds of streak within shots:', odds_of_streak_within_shots
+odds_no_streak = 1.0 - odds_of_streak_within_shots
+print 'odds of no streak for player:', odds_no_streak
+
+odds_no_streak_any_player = (odds_no_streak ** 10.0)
+print 'odds of no streak for any players:', odds_no_streak_any_player
+
+odds_of_streak = 1.0 - odds_no_streak_any_player
 
 print 'odds of a 10 streak from 10 players with 15 shots each, analytically:', odds_of_streak
-
-odds_no_streak = 1 - odds_of_streak
 
 def player_has_streak(shots, streak_threshold):
     in_streak = False
@@ -25,12 +31,12 @@ def player_has_streak(shots, streak_threshold):
     return False      
 
 streaks = 0.0
-for experiment in range(1000):
+for experiment in range(10000):
     for player in range(10):
-       if player_has_streak(15, 10):
-           streaks += 1.0
-           break
-        
-print 'streak probability by monte-carlo:', streaks / 1000
+        if player_has_streak(15, 10):
+            streaks += 1.0
+            break
+      
+print 'streak probability by monte-carlo:', streaks / 10000.0
 
-print 'odds of seeing this at least once in 82 games:', 1 - ((1 - streaks / 1000) ** 82)
+print 'odds of seeing this at least once in 82 games:', 1 - ((1 - (streaks / 10000.0)) ** 82)
