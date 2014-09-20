@@ -1,0 +1,3 @@
+The questions states the chance of being monozygotic given being a twin as 8%. However, if the twin is female, the odds are zero that they are monozygotic. The question also provides the information that the twin was male, thus roughly doubling the odds if male/female split in twins is equal.
+
+
