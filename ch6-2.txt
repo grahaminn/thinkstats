@@ -1,0 +1,3 @@
+Most of the population has more than the mean average number of legs (more people have 1 or no legs, than have 3 legs, taking the average below 2).
+
+None of the population has more than the median, of 2 legs
