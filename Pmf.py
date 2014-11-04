@@ -248,6 +248,28 @@ class Pmf(_DictWrapper):
             var += p * (x - mu)**2
         return var
 
+    def MeanCubedDeviation(self, mu=None):
+        """Computes the mean cubed deviation of a PMF.
+
+        Args:
+            mu: the point around which the variance is computed;
+                if omitted, computes the mean
+
+        Returns:
+            float variance
+        """
+        if mu is None:
+            mu = self.Mean()
+
+        var = 0.0
+        for x, p in self.d.iteritems():
+            var += p * (x - mu)**3
+        return var
+
+    def Skewness(self):
+        return self.MeanCubedDeviation() / (self.Var() ** 1.5)
+  
+
     def Log(self):
         """Log transforms the probabilities."""
         m = self.MaxLike()
